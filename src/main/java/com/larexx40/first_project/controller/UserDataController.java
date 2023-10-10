@@ -22,7 +22,6 @@ public class UserDataController {
     @PostMapping ("/create_user")
     public ResponseEntity createUser (@Valid @RequestBody UserData userdata){
         BaseResponse baseResponse = userService.createUser(userdata);
-        System.out.println("here");
         HttpStatus status = (baseResponse.getStatus() == 200)? HttpStatus.OK:  HttpStatus.BAD_REQUEST;
         return new ResponseEntity<>(baseResponse, status);
     }
@@ -31,7 +30,7 @@ public class UserDataController {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public  BaseResponse handleValidationExceptions(MethodArgumentNotValidException ex){
-        BaseResponse baseResponse = new BaseResponse();
+        BaseResponse baseResponse = new BaseResponse(true);
         baseResponse.setStatus(400);
         baseResponse.setDescription("An Error Occurred");
         Map<String, String> errors = new HashMap<>();
