@@ -112,4 +112,24 @@ public class UserService {
         }
         return baseResponse;
     }
+
+    public  BaseResponse deleteUserByEmail(String email) {
+        BaseResponse baseResponse = new BaseResponse(true );
+        try {
+            Optional<UserEntity> isExist = userRepo.getUserByEmail(email);
+            if (!isExist.isPresent()) {
+                baseResponse.setStatus(ERROR_STATUS_CODE);
+                baseResponse.setDescription("User not found");
+                baseResponse.setData(null);
+                return baseResponse;
+            }
+            userRepo.deleteById(isExist.get().getId());
+            baseResponse.setStatus(200);
+            baseResponse.setDescription("User Deleted");
+            baseResponse.setData(null);
+        }catch (Exception ex){
+            LOG.warning(ex.getMessage());
+        }
+        return baseResponse;
+    }
 }

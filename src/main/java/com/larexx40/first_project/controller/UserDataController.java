@@ -47,6 +47,13 @@ public class UserDataController {
         return new ResponseEntity<>(baseResponse, status);
     }
 
+    @DeleteMapping("/delete_user")
+    public ResponseEntity deleteUserByEmail(@RequestParam("email") String email){
+        BaseResponse baseResponse = userService.deleteUserByEmail(email);
+        HttpStatus status = (baseResponse.getStatus() == 200)? HttpStatus.OK:  HttpStatus.BAD_REQUEST;
+        return new ResponseEntity<>(baseResponse, status);
+    }
+
     // General exception for the rest controller
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)

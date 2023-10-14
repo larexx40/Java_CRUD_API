@@ -21,6 +21,7 @@ public interface UserRepo extends JpaRepository<UserEntity, Long> {
     @Override
     List<UserEntity> findAll();
 
+
     //update user
 
 }
