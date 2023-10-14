@@ -26,6 +26,27 @@ public class UserDataController {
         return new ResponseEntity<>(baseResponse, status);
     }
 
+    @PostMapping ("/update_user")
+    public ResponseEntity updateUser (@Valid @RequestBody UserData userdata){
+        BaseResponse baseResponse = userService.updateUser(userdata);
+        HttpStatus status = (baseResponse.getStatus() == 200)? HttpStatus.OK:  HttpStatus.BAD_REQUEST;
+        return new ResponseEntity<>(baseResponse, status);
+    }
+
+    @GetMapping("/")
+    public  ResponseEntity getAllUser(){
+        BaseResponse baseResponse = userService.getAllUsers();
+        HttpStatus status = (baseResponse.getStatus() == 200)? HttpStatus.OK: HttpStatus.BAD_REQUEST;
+        return new ResponseEntity<>(baseResponse, status);
+    }
+
+    @GetMapping("/get_user")
+    public ResponseEntity getUserByEmail(@RequestParam("email") String email){
+        BaseResponse baseResponse = userService.getUserByEmail(email);
+        HttpStatus status = (baseResponse.getStatus() == 200)? HttpStatus.OK:  HttpStatus.BAD_REQUEST;
+        return new ResponseEntity<>(baseResponse, status);
+    }
+
     // General exception for the rest controller
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)

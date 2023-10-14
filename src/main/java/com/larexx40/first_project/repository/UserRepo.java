@@ -4,6 +4,7 @@ import com.larexx40.first_project.model.UserEntity;
 import org.springframework.data.domain.Example;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface UserRepo extends JpaRepository<UserEntity, Long> {
@@ -16,4 +17,10 @@ public interface UserRepo extends JpaRepository<UserEntity, Long> {
     //you can as write mysql query annotate with @Query
 //    @Query("SELECT u FROM UserEntity u WHERE u.email = :email")
     Optional<UserEntity> getUserByEmail(String email);
+
+    @Override
+    List<UserEntity> findAll();
+
+    //update user
+
 }
